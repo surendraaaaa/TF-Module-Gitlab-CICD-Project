@@ -1,0 +1,22 @@
+resource "aws_key_pair" "my_key" {
+  key_name   = "my-module-key"
+  public_key = file("my_key.pub")
+}
+
+resource aws_instance "my_instance" {
+    ami = var.ami_id
+    instance_type = var.instance_type
+    subnet_id = var.subnet_id
+    key_name = aws_key_pair.my_key.key_name
+    security_group_name = var.security_group_name
+
+    root_block_storage {
+        volume_size = var.block_storage
+        volume_type = gp3
+    }
+
+    tags = {
+        Name = var.instance_name
+    }
+
+}
