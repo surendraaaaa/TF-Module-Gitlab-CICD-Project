@@ -2,14 +2,14 @@ resource aws_security_group "my_security_group" {
 
         vpc_id = var.vpc_id
         name = "my_security_group"
-        desciption = "this is security group exposed to users"
+        description = "this is security group exposed to users"
 
         ingress {
             from_port = 22
             to_port = 22
             protocol = "tcp"
             cidr_blocks = ["0.0.0.0/0"]
-            desciption = "SSH port"
+            description = "SSH port"
         }
 
         ingress {
@@ -17,7 +17,7 @@ resource aws_security_group "my_security_group" {
             to_port = 80
             protocol = "tcp" 
             cidr_blocks = ["0.0.0.0/0"]
-            desciption = "HTTP port"
+            description = "HTTP port"
         }
 
         ingress {
@@ -25,7 +25,7 @@ resource aws_security_group "my_security_group" {
             to_port = 443
             protocol = "tcp" 
             cidr_blocks = ["0.0.0.0/0"]
-            desciption = "HTTPS port"
+            description = "HTTPS port"
         }
 
         egress {
@@ -33,7 +33,7 @@ resource aws_security_group "my_security_group" {
             to_port = 0
             protocol = "-1" 
             cidr_blocks = ["0.0.0.0/0"]
-            desciption = "HTTPS port"
+            description = "HTTPS port"
         }
 }
 
