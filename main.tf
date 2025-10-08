@@ -20,7 +20,7 @@ module "security_group" {
     source = "./modules/ec2"
     vpc_id = module.vpc.vpc_id
     subnet_id = module.vpc.subnet_id
-    security_group_name = module.security_group.security_group_name
+    vpc_security_group_ids = [module.security_group.security_group_ids]
     ami_id = "ami-0cfde0ea8edd312d4"
     instance_type = "t3.micro"
     block_storage = 10

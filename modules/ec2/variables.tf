@@ -8,7 +8,7 @@ variable "subnet_id" {
 
 }
 
-variable "security_group_name" {
+variable "security_group_ids" {
 
 
 }
