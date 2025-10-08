@@ -1,0 +1,51 @@
+image:
+    name:  registry.gitlab.com/gitlab-org/gitlab-build-images:terraform
+    entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/bin'
+
+variables:
+    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY}
+    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS}
+    AWS_DEFAULT_REGION: "us-east-2"
+    TF_API_TOKEN: "${TF_TOKEN}"
+
+before_script:
+    - export TF_TOKEN_app_terraform_io=$TF_API_TOKEN
+    - terraform --version
+    - terraform init
+
+stages:
+    - validate
+    - plan
+    - apply
+    - destroy
+
+validate:
+    stage: validate
+    script:
+        - terraform validate
+
+plan:
+    stage: plan
+    dependencies:
+        - validate # only run this job if previous job is completed
+    script:
+        - terraform plan -out="planstage" # save plan stage as a artifact to use in apply stage
+    artifacts:
+        paths:
+            - planstage
+    
+apply:
+    stage: apply
+    dependencies:
+        - plan
+    script:
+        - terraform apply -input=false "planstage"
+    when: manual 
+
+destroy:
+    stage: destroy
+    script:
+        - terraform destroy -auto-approve
+    when: manual 
