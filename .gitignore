@@ -1,6 +1,11 @@
 # Local .terraform directories
 .terraform/
 
+# Ignore EC2 SSH keys
+modules/ec2/my_key
+modules/ec2/my_key.pub
+
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
