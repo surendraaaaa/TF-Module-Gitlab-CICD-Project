@@ -1,6 +1,6 @@
 resource "aws_key_pair" "my_key" {
   key_name   = "my-module-key"
-  public_key = file("my_key.pub")
+  public_key = file("./modules/ec2/my_key.pub")
 }
 
 resource aws_instance "my_instance" {
