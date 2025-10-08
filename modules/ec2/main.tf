@@ -8,9 +8,9 @@ resource aws_instance "my_instance" {
     instance_type = var.instance_type
     subnet_id = var.subnet_id
     key_name = aws_key_pair.my_key.key_name
-    security_group_name = var.security_group_name
+    security_group_ids = var.security_group_ids
 
-    root_block_storage {
+    root_block_device {
         volume_size = var.block_storage
         volume_type = gp3
     }
